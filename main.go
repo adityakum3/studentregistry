@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"strconv"
@@ -35,7 +36,7 @@ func addPost(c echo.Context) error {
 	roll = append(roll, Roll)
 	branch = append(branch, Branch)
 	userID = append(userID, UserID)
-	return nil
+	return c.String(http.StatusOK, "Entry added")
 }
 func deleteGet(c echo.Context) error {
 	return c.String(http.StatusOK,
@@ -106,6 +107,84 @@ func editPost(c echo.Context) error {
 		return c.String(http.StatusOK, "Student Entry edited.")
 	}
 }
+func findGet(c echo.Context) error {
+	return c.String(http.StatusOK,
+		"Enter the parameter and its Value to be searched")
+}
+func findPost(c echo.Context) error {
+	Parameter := c.FormValue("Parameter")
+	Value := c.FormValue("Value")
+	f := false
+	if Parameter == "Name" {
+		for i, v := range name {
+			if Value == v {
+				f = true
+				c.String(http.StatusOK, fmt.Sprintf(
+					"Name : %v\tRoll No. : %v\tBranch : %v\tUserID : %v",
+					name[i], roll[i], branch[i], userID[i]))
+			}
+		}
+		if f == false {
+			return c.String(http.StatusBadRequest,
+				"No such student found")
+		} else {
+			return c.String(http.StatusOK, "Done")
+		}
+	} else if Parameter == "Roll No." {
+		Roll, e := strconv.Atoi(Value)
+		if e != nil {
+			return c.String(http.StatusBadRequest,
+				"Please enter a valid roll no.")
+		}
+		for i, v := range roll {
+			if Roll == v {
+				f = true
+				c.String(http.StatusOK, fmt.Sprintf(
+					"Name : %v\tRoll No. : %v\tBranch : %v\tUserID : %v",
+					name[i], roll[i], branch[i], userID[i]))
+			}
+		}
+		if f == false {
+			return c.String(http.StatusBadRequest,
+				"No such student found")
+		} else {
+			return c.String(http.StatusOK, "Done")
+		}
+	} else if Parameter == "Branch" {
+		for i, v := range branch {
+			if Value == v {
+				f = true
+				c.String(http.StatusOK, fmt.Sprintf(
+					"Name : %v\tRoll No. : %v\tBranch : %v\tUserID : %v",
+					name[i], roll[i], branch[i], userID[i]))
+			}
+		}
+		if f == false {
+			return c.String(http.StatusBadRequest,
+				"No such student found")
+		} else {
+			return c.String(http.StatusOK, "Done")
+		}
+	} else if Parameter == "UserID" {
+		for i, v := range userID {
+			if Value == v {
+				f = true
+				c.String(http.StatusOK, fmt.Sprintf(
+					"Name : %v\tRoll No. : %v\tBranch : %v\tUserID : %v",
+					name[i], roll[i], branch[i], userID[i]))
+			}
+		}
+		if f == false {
+			return c.String(http.StatusBadRequest,
+				"No such student found")
+		} else {
+			return c.String(http.StatusOK, "Done")
+		}
+	} else {
+		return c.String(http.StatusBadRequest,
+			"Please enter a valid parameter")
+	}
+}
 func main() {
 	e := echo.New()
 	e.GET("/", home)
@@ -115,5 +194,7 @@ func main() {
 	e.POST("/delete", deletePost)
 	e.GET("/edit", editGet)
 	e.POST("/edit", editPost)
-	//e.GET("/find", find)
+	e.GET("/find", findGet)
+	e.POST("/find", findPost)
+	e.Logger.Fatal(e.Start(":4000"))
 }
