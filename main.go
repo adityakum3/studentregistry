@@ -170,7 +170,7 @@ func findPost(c echo.Context) error {
 			if Value == v {
 				f = true
 				c.String(http.StatusOK, fmt.Sprintf(
-					"Name : %v\tRoll No. : %v\tBranch : %v\tUserID : %v",
+					"Name : %v\tRoll No. : %v\tBranch : %v\tUserID : %v\n",
 					name[i], roll[i], branch[i], userID[i]))
 			}
 		}
