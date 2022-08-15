@@ -18,10 +18,11 @@ func home(c echo.Context) error {
 			"Please go the URL /find to find a student entry.\n"+
 			"Please go the URL /edit to edit a student entry.\n")
 }
-func addget(c echo.Context) error {
-	return c.String(http.StatusOK, "Please enter the form value as Name, Roll No. ,Branch,UserID")
+func addGet(c echo.Context) error {
+	return c.String(http.StatusOK,
+		"Please enter Name, Roll No. ,Branch,UserID")
 }
-func addpost(c echo.Context) error {
+func addPost(c echo.Context) error {
 	Name := c.FormValue("Name")
 	RollN := c.FormValue("Roll No.")
 	Branch := c.FormValue("Branch")
@@ -36,10 +37,11 @@ func addpost(c echo.Context) error {
 	userID = append(userID, UserID)
 	return nil
 }
-func deleteget(c echo.Context) error {
-	return c.String(http.StatusOK, "Please enter the name whose entry is to be deleted.")
+func deleteGet(c echo.Context) error {
+	return c.String(http.StatusOK,
+		"Please enter the name whose entry is to be deleted.")
 }
-func deletepost(c echo.Context) error {
+func deletePost(c echo.Context) error {
 	Name := c.FormValue("Name")
 	f := false
 	for i, v := range name {
@@ -52,18 +54,66 @@ func deletepost(c echo.Context) error {
 		}
 	}
 	if f == false {
-		return c.String(http.StatusBadRequest, "Student not found.")
+		return c.String(http.StatusBadRequest,
+			"Student not found.")
 	} else {
 		return c.String(http.StatusOK, "Student entry deleted.")
+	}
+}
+func editGet(c echo.Context) error {
+	return c.String(http.StatusOK,
+		"Please enter the Name,  parameter and  change")
+}
+func editPost(c echo.Context) error {
+	Name := c.FormValue("Name")
+	Parameter := c.FormValue("Parameter")
+	Change := c.FormValue("Change")
+	f := false
+	for i, v := range name {
+		if v == Name {
+			f = true
+			if Parameter == "Name" {
+				n := append(name[i+1:])
+				name = append(name[:i], Change)
+				name = append(name, n...)
+			} else if Parameter == "Roll No." {
+				Roll, e := strconv.Atoi(Change)
+				if e != nil {
+					return c.String(http.StatusBadRequest,
+						"Invalid Roll No.")
+				}
+				n := append(roll[i+1:])
+				roll = append(roll[:i], Roll)
+				roll = append(roll, n...)
+			} else if Parameter == "Branch" {
+				n := append(branch[i+1:])
+				branch = append(branch[:i], Change)
+				branch = append(branch, n...)
+			} else if Parameter == "UserID" {
+				n := append(userID[i+1:])
+				userID = append(userID[:i], Change)
+				userID = append(userID, n...)
+			} else {
+				return c.String(http.StatusBadRequest,
+					"Please enter a valid parameter")
+			}
+		}
+	}
+	if f == false {
+		return c.String(http.StatusBadRequest,
+			"No such student found")
+	} else {
+		return c.String(http.StatusOK, "Student Entry edited.")
 	}
 }
 func main() {
 	e := echo.New()
 	e.GET("/", home)
-	e.GET("/add", addget)
-	e.POST("/add", addpost)
-	e.GET("/delete", deleteget)
-	e.POST("/delete", deletepost)
-	//e.GET("/edit", edit)
+	e.GET("/add", addGet)
+	e.POST("/add", addPost)
+	e.GET("/delete", deleteGet)
+	e.POST("/delete", deletePost)
+	e.GET("/edit", editGet)
+	e.POST("/edit", editPost)
 	//e.GET("/find", find)
 }
