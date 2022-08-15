@@ -14,10 +14,10 @@ var userID []string
 
 func home(c echo.Context) error {
 	return c.String(http.StatusOK,
-		"Please go the URL /add to add a student entry.\n"+
-			"Please go the URL /add to add a student entry.\n"+
-			"Please go the URL /find to find a student entry.\n"+
-			"Please go the URL /edit to edit a student entry.\n")
+		"Please go to the URL /add to add a student entry.\n"+
+			"Please go to the URL /add to add a student entry.\n"+
+			"Please go to the URL /find to find a student entry.\n"+
+			"Please go to the URL /edit to edit a student entry.\n")
 }
 func addGet(c echo.Context) error {
 	return c.String(http.StatusOK,
