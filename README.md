@@ -17,4 +17,4 @@ While using the database I created a collection that contains all the details as
 
 In order to get input from the user without the use of front end I used the `POSTMAN` app that hepls us to send `POST` requests in the form of form values which are then interpreted by `c.FormValue()`.
 
-The server used is `localhost:4000` and there are various URL used by the user to do various tasks `localhost:4000\add` to add the student entry, `localhost:4000\delete` to delete an entry, `localhost:4000\edit` to edit the entry and `localhost:4000/find` to find the entry while any other URL works as an instruction to the user.
+The server used is `localhost:4000` and there are various URL used by the user to do various tasks `localhost:4000\add` to add the student entry, `localhost:4000\delete` to delete an entry, `localhost:4000\edit` to edit the entry and `localhost:4000\find` to find the entry while any other URL works as an instruction to the user.
