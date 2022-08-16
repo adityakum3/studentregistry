@@ -19,10 +19,6 @@ var AddResult *mongo.InsertOneResult
 var Result *mongo.UpdateResult
 var Delete *mongo.DeleteResult
 
-//var name []string
-//var roll []int
-//var branch []string
-//var userID []string
 const (
 	IncorrectError = "Please enter a correct roll no."
 	Done           = "Done"
@@ -56,10 +52,6 @@ func addPost(c echo.Context) error {
 		{"Branch", Branch},
 		{"UserID", UserID},
 	})
-	//name = append(name, Name)
-	//roll = append(roll, Roll)
-	//branch = append(branch, Branch)
-	//userID = append(userID, UserID)
 	return c.String(http.StatusOK, Done)
 }
 func deleteGet(c echo.Context) error {
@@ -75,22 +67,6 @@ func deletePost(c echo.Context) error {
 		return c.String(http.StatusOK, NotFound)
 	}
 	return c.String(http.StatusOK, "Done")
-	//f := false
-	//for i, v := range name {
-	//	if v == Name {
-	//		name = append(name[:i], name[i+1:]...)
-	//		roll = append(roll[:i], roll[i+1:]...)
-	//		branch = append(branch[:i], branch[i+1:]...)
-	//		userID = append(userID[:i], userID[i+1:]...)
-	//		f = true
-	//	}
-	//}
-	//if f == false {
-	//	return c.String(http.StatusBadRequest,
-	//		"Student not found.")
-	//} else {
-	//	return c.String(http.StatusOK, "Student entry deleted.")
-	//}
 }
 func editGet(c echo.Context) error {
 	return c.String(http.StatusOK,
@@ -113,43 +89,6 @@ func editPost(c echo.Context) error {
 		return c.String(http.StatusOK, NotFound)
 	}
 	return c.String(http.StatusOK, Done)
-	//f := false
-	//for i, v := range name {
-	//	if v == Name {
-	//		f = true
-	//		if Parameter == "Name" {
-	//			n := append(name[i+1:])
-	//			name = append(name[:i], Change)
-	//			name = append(name, n...)
-	//		} else if Parameter == "Roll No." {
-	//			Roll, e := strconv.Atoi(Change)
-	//			if e != nil {
-	//				return c.String(http.StatusBadRequest,
-	//					"Invalid Roll No.")
-	//			}
-	//			n := append(roll[i+1:])
-	//			roll = append(roll[:i], Roll)
-	//			roll = append(roll, n...)
-	//		} else if Parameter == "Branch" {
-	//			n := append(branch[i+1:])
-	//			branch = append(branch[:i], Change)
-	//			branch = append(branch, n...)
-	//		} else if Parameter == "UserID" {
-	//			n := append(userID[i+1:])
-	//			userID = append(userID[:i], Change)
-	//			userID = append(userID, n...)
-	//		} else {
-	//			return c.String(http.StatusBadRequest,
-	//				"Please enter a valid parameter")
-	//		}
-	//	}
-	//}
-	//if f == false {
-	//	return c.String(http.StatusBadRequest,
-	//		"No such student found")
-	//} else {
-	//	return c.String(http.StatusOK, "Student Entry edited.")
-	//}
 }
 func findGet(c echo.Context) error {
 	return c.String(http.StatusOK,
@@ -160,7 +99,6 @@ func findPost(c echo.Context) error {
 	Value := c.FormValue("Value")
 	DataCursor, err := StudentData.Find(ctx, bson.M{Parameter: Value})
 	if err != nil {
-		//log.Fatal(err)
 		return c.String(http.StatusOK, "")
 	}
 	var Data []bson.M
@@ -175,76 +113,6 @@ func findPost(c echo.Context) error {
 
 	}
 	return c.String(http.StatusOK, Done)
-	//f := false
-	//if Parameter == "Name" {
-	//	for i, v := range name {
-	//		if Value == v {
-	//			f = true
-	//			c.String(http.StatusOK, fmt.Sprintf(
-	//				"Name : %v\tRoll No. : %v\tBranch : %v\tUserID : %v",
-	//				name[i], roll[i], branch[i], userID[i]))
-	//		}
-	//	}
-	//	if f == false {
-	//		return c.String(http.StatusBadRequest,
-	//			"No such student found")
-	//	} else {
-	//		return c.String(http.StatusOK, "Done")
-	//	}
-	//} else if Parameter == "Roll No." {
-	//	Roll, e := strconv.Atoi(Value)
-	//	if e != nil {
-	//		return c.String(http.StatusBadRequest,
-	//			"Please enter a valid roll no.")
-	//	}
-	//	for i, v := range roll {
-	//		if Roll == v {
-	//			f = true
-	//			c.String(http.StatusOK, fmt.Sprintf(
-	//				"Name : %v\tRoll No. : %v\tBranch : %v\tUserID : %v",
-	//				name[i], roll[i], branch[i], userID[i]))
-	//		}
-	//	}
-	//	if f == false {
-	//		return c.String(http.StatusBadRequest,
-	//			"No such student found")
-	//	} else {
-	//		return c.String(http.StatusOK, "Done")
-	//	}
-	//} else if Parameter == "Branch" {
-	//	for i, v := range branch {
-	//		if Value == v {
-	//			f = true
-	//			c.String(http.StatusOK, fmt.Sprintf(
-	//				"Name : %v\tRoll No. : %v\tBranch : %v\tUserID : %v",
-	//				name[i], roll[i], branch[i], userID[i]))
-	//		}
-	//	}
-	//	if f == false {
-	//		return c.String(http.StatusBadRequest,
-	//			"No such student found")
-	//	} else {
-	//		return c.String(http.StatusOK, "Done")
-	//	}
-	//} else if Parameter == "UserID" {
-	//	for i, v := range userID {
-	//		if Value == v {
-	//			f = true
-	//			c.String(http.StatusOK, fmt.Sprintf(
-	//				"Name : %v\tRoll No. : %v\tBranch : %v\tUserID : %v\n",
-	//				name[i], roll[i], branch[i], userID[i]))
-	//		}
-	//	}
-	//	if f == false {
-	//		return c.String(http.StatusBadRequest,
-	//			"No such student found")
-	//	} else {
-	//		return c.String(http.StatusOK, "Done")
-	//	}
-	//} else {
-	//	return c.String(http.StatusBadRequest,
-	//		"Please enter a valid parameter")
-	//}
 }
 func main() {
 	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb+srv://Aditmoe:MongoDBA@cluster0.dmye4md.mongodb.net/?retryWrites=true&w=majority"))
