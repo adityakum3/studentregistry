@@ -11,7 +11,7 @@ Right now I have set it to 10 minutes but it can be extended as per need so that
 
 `e := echo.New()`
 
-e is a Multiplexer used to create an HTTP server that would listen, match and handle `GET` and `POST` requests in go. `GET` refers to the request to get data from a resources while `POST` requests are uesd to send data to a particular server.
+e is a Multiplexer used to create an HTTP server that would listen, match and handle `GET` and `POST` requests in go. `GET` refers to the request to get data from a resources while `POST` requests are used to send data to a particular server.
 
 While using the database I created a collection that contains all the details as documents which are nothing but key and value stored in binary format `bson` in MongoDB. The various functions of `mongo.Collection` like `InsertOne`,`DeleteOne`,`UpdateOne` and `Find` that help to perform the required tasks on the database.
 
