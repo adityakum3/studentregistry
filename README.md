@@ -1,6 +1,4 @@
 # Student Registry
-For the Programming club secretary task.
-
 The backend can perform various functions such as adding an entry to the databse, deleting an entry, editing an entry and finding an entry.
 
 The database that is used in the current repository is MongoDB Atlas an online free databasing platform. I created a client of the online MongoDB Atlas server. A major point to pay attention to is that the context variable that is used to update each entry in the database has a fixed life time. 
